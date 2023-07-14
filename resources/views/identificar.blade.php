@@ -4,16 +4,18 @@
 		<title>Identificar</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="css/main.css" /> 
+		<link rel="stylesheet" href="css/main.css" />
 	</head>
 	<body class="is-preload">
-	@include('layout.navbar')
-			<div class="centro">
-			<form class="formulario"> 
+
+	<h2 class="centro">IDENTIFICA LA PLANTA QUE NO CONOCES</h2>
+		<div class="centro">
+		
+		<form>
 				<input type="file" multiple />
 				<button type="button">Identifiar</button>
 			  </form>
-			</div>
+		</div>
 			
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -91,63 +93,29 @@
 										</table>
 									</div>
 								</section>
-
-							<!-- Section 
-								<section>
+								<!-- Section 
+								<section>-->
 									<header class="major">
-										<h2>Ipsum sed dolor</h2>
+										<h2>Imágenes similares</h2>
 									</header>
 									<div class="posts">
 										<article>
-											<a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
-											<h3>Interdum aenean</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
+											<img id="similar" src="" alt="similar" />
+											<h3>Similitides</h3>
+											<p id="similitudes2"></p>
+											
 										</article>
 										<article>
-											<a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
-											<h3>Nulla amet dolore</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
+											<img id="similar2" src="" alt="similar" />
+											<h3>Similitudes</h3>
+											<p id="similitudes"></p>
 										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
-											<h3>Tempus ullamcorper</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
-											<h3>Sed etiam facilis</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic05.jpg" alt="" /></a>
-											<h3>Feugiat lorem aenean</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic06.jpg" alt="" /></a>
-											<h3>Amet varius aliquam</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
+										
+										
+										
+										
 									</div>
-								</section>-->
+								</section>
 
 						</div>
 					</div>
@@ -158,11 +126,6 @@
 			@include('layout.footer')
 
 		<!-- Scripts -->
-			<script src="js/script/jquery.min.js"></script>
-			<script src="js/script/browser.min.js"></script>
-			<script src="js/script/breakpoints.min.js"></script>
-			<script src="js/script/util.js"></script>
-			<script src="js/script/main.js"></script>
 
 			<script type="text/javascript">
 				document.querySelector('button').onclick = function sendIdentification() {
@@ -224,10 +187,16 @@
 				  const taxonomy = document.getElementById('taxonomy');
 				  const synonyms = document.getElementById('synonyms');
 				  const plantUrl = document.getElementById('plant-url');
+				  const imgsimilar = document.getElementById('similar');
+				  const imgsimilar2 = document.getElementById('similar2');
+				  const num = document.getElementById('similitudes')
+				  const num2 = document.getElementById('similitudes2')
 			
 				  if (planta && planta.suggestions && planta.suggestions.length > 0) {
 					const plant = planta.suggestions[0];
 					const img = planta.images[0];
+					const similar = planta.suggestions[0].similar_images[0];
+					const similar2 = planta.suggestions[1].similar_images[1];
 			
 					uploadedImage.src = img.url;
 			
@@ -237,9 +206,13 @@
 					taxonomy.textContent = JSON.stringify(plant.plant_details.taxonomy);
 					synonyms.innerHTML = plant.plant_details.synonyms.map(synonym => `<li>${synonym}</li>`).join('');
 					plantUrl.innerHTML = `<a href="${plant.plant_details.url}" target="_blank">${plant.plant_details.url}</a>`;
-			
 					resultContainer.style.display = 'block';
-				  }
+					imgsimilar.src = similar.url
+					imgsimilar2.src = similar2.url
+					num.textContent = similar.similarity
+					num.textContent = similar.similarity
+					num2.textContent = similar2.similarity
+				  } 
 				}
 			  </script>
 
